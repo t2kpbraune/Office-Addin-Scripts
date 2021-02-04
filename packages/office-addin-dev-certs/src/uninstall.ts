@@ -15,6 +15,8 @@ function getUninstallCommand(machine: boolean = false): string {
          return `powershell -ExecutionPolicy Bypass -File "${script}" ${machine ? "LocalMachine" : "CurrentUser"} "${defaults.certificateName}"`;
       case "darwin": // macOS
          return `sudo security delete-certificate -c '${defaults.certificateName}'`;
+      case "linux":
+          return "echo true";
       default:
          throw new Error(`Platform not supported: ${process.platform}`);
    }
